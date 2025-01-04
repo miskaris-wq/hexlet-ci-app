@@ -1,27 +1,31 @@
-name: Java CI
+name: Node.js CI
 
 on:
   push:
     branches:
-      - main  # Убедитесь, что ваша основная ветка называется main
+      - main  # Настройте на вашу основную ветку
   pull_request:
     branches:
       - main
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
-      - name: Setup project
-        run: make setup
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'  # Укажите необходимую версию Node.js
+
+      - name: Install dependencies
+        run: npm install
 
       - name: Run tests
-        run: make test
+        run: npm test
 
-      - name: Run linter
-        run: make lint
+      - name: Hello from Hexlet
+        uses: hexlet-components/hello-from-hexlet-action@release
